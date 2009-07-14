@@ -1,0 +1,15 @@
+for DARFILE in ${STORAGEDIR}/${BASENAME}-${DATE}*.dar; do
+  echo "Encrypting:" $DARFILE
+  gpg -e -r cj@yoga -r rebane@yoga -o "${DARFILE}".gpg "${DARFILE}" &&
+    rm -rf "${DARFILE}" ||
+      { echo "Could not successfully encrypt or remove, exiting:" $DARFILE; }
+# TODO: Put an "exit 1" in the line above when it's run inside a script
+done
+
+for DARFILE in ${STORAGEDIR}/weekly/${BASENAME}-${OLDDATE}-${DATE}*.dar; do
+  echo "Encrypting:" $DARFILE
+  gpg -e -r cj@yoga -r rebane@yoga -o "${DARFILE}".gpg "${DARFILE}" &&
+    rm -rf "${DARFILE}" ||
+      { echo "Could not successfully encrypt or remove, exiting:" $DARFILE; }
+# TODO: Put an "exit 1" in the line above when it's run inside a script
+done

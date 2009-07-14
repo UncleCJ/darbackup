@@ -1,0 +1,11 @@
+BACKUPSETS=`ls "${STORAGEDIR}/" | \
+  sed 's:\-cat\.1\.dar\(\.gpg\)*$::' | \
+  sed 's:\.[0-9]*\.dar\(\.gpg\)*$::' | \
+  sed 's:\.vol[0-9]*+[0-9]*\.par2$::' | \
+  sed 's:\.par2$::' | \
+  sort | uniq`
+
+for BACKUPSET in $BACKUPSETS; do
+  echo "$BACKUPSET:" `du -hc "${STORAGEDIR}/${BACKUPSET}"*.[dg][ap][rg] | tail -1 | cut -f 1` "(.dar)" \
+`du -hc "${STORAGEDIR}/${BACKUPSET}"*.par2 | tail -1 | cut -f 1` "(.par2)" 
+done

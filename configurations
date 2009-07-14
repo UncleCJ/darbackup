@@ -1,0 +1,21 @@
+BASENAME=sandy-root
+ROOTDIR=/
+EXCEPTIONS="-P dev -P proc -P var -P home -P data -P mnt -P sodi -P tmp -P media -P sys" 
+
+BASENAME=sandy-data
+ROOTDIR=/data
+EXCEPTIONS="-P yoga/backups -P backups -P yoga/diskimages -P old_sandy/data -P postgresql" 
+
+BASENAME=sandy-home
+ROOTDIR=/home
+EXCEPTIONS="-P cj/repositories -P margus/tamm.backup -P raivora/tammsaare \
+-P raivora/public_html -P heinar/ibs_11.03.2009.dump -P cj/sandy-webfiles.git" 
+
+BASENAME=sabu-root
+ROOTDIR=/
+EXCEPTIONS="-P dev -P proc -P var -P home -P data -P mnt -P tmp -P media -P sys" 
+
+BASENAME=sabu-home
+ROOTDIR=/home
+EXCEPTIONS="-P data/yoga/backups -P data/postgresql -P storage/Musa -P cj/svnrepo-2009-03-24-r5922.dump \
+-P heinar/yoga.dump_14.06.2009 -P storage/ubuntu-8.04.1-server-i386.iso -P cj/repositories" 

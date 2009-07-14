@@ -1,0 +1,4 @@
+"${DAR}" -v -s 100M -y -R "${ROOTDIR}" -c "${STORAGEDIR}/${BASENAME}-${DATE}" \
+-X "${BASENAME}*.dar" ${EXCEPTIONS} ${DONTCOMPRESS}
+"${DAR}" -C "${STORAGEDIR}/${BASENAME}-${DATE}-cat" \
+-A "${STORAGEDIR}/${BASENAME}-${DATE}"

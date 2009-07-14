@@ -1,0 +1,9 @@
+for GPGFILE in ${STORAGEDIR}/${BASENAME}-${DATE}*.dar.gpg; do
+  echo "Decrypting:" $GPGFILE
+  DARFILE=`echo $GPGFILE | sed 's:\.gpg$::'`
+  export GNUPGHOME=/home/cj/.gnupg/
+  echo $PASSPHRASE | gpg -d --passphrase-fd 0 -o "${DARFILE}" "${GPGFILE}" ||
+      { echo "Could not successfully decrypt or remove, exiting:" $DARFILE; }
+#    rm -rf "${GPGFILE}" ||
+# TODO: Put an "exit 1" in the line above when it's run inside a script
+done

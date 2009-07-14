@@ -1,0 +1,2 @@
+par2 c -r20 -u -s104857600 "${STORAGEDIR}/${BASENAME}-${DATE}" \
+"${STORAGEDIR}/${BASENAME}-${DATE}"*.{dar,gpg}

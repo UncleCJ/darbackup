@@ -1,0 +1,10 @@
+# TODO: Need to script a way to find the olddate
+# TODO: Need to script decrypting of the catalogue file
+# TODO: Need to be able to allow monthly to be first weekly and weekly to be first daily
+# TODO: Need to find a way to address the names of the different file labels
+# TODO: Need to find a way to address the storage directories of different levels
+OLDDATE=2009-07-06
+"${DAR}" -v -s 100M -y -R "${ROOTDIR}" -c "${STORAGEDIR}/weekly/${BASENAME}-${OLDDATE}-${DATE}" \
+  -A "${STORAGEDIR}/monthly/${BASENAME}-${OLDDATE}-cat" ${EXCEPTIONS} ${DONTCOMPRESS} && \
+"${DAR}" -C "${STORAGEDIR}/weekly/${BASENAME}-${OLDDATE}-${DATE}-cat" \
+  -A "${STORAGEDIR}/weekly/${BASENAME}-${OLDDATE}-${DATE}" 
