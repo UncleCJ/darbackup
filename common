@@ -1,7 +1,7 @@
 mkdir -p /data/yoga/backups/dar/{daily,weekly,monthly}
 DAR=/usr/bin/dar
 DATE=`date "+%Y-%m-%d"`
-STORAGEDIR="/data/yoga/backups/dar" 
-DONTCOMPRESS="-Z \"*.mp3\" -Z \"*.MP3\" -Z \"*.zip\" -Z \"*.sit\" -Z \"*.gz\" \
--Z \"*.bz2\" -Z \"*.jar\" -Z \"*.pdf\" -Z \"*.MPG\" -Z \"*.mpg\" -Z \"*.avi\" \
--Z \"*.dar\" -Z \"*.m4a\" -Z \"*.wmv\""
+STORAGEDIR="/data/yoga/backups" 
+DONTCOMPRESS='-Z "*.mp3" -Z "*.MP3" -Z "*.zip" -Z "*.sit" -Z "*.gz" 
+-Z "*.bz2" -Z "*.jar" -Z "*.pdf" -Z "*.MPG" -Z "*.mpg" -Z "*.avi" 
+-Z "*.dar" -Z "*.m4a" -Z "*.wmv"'

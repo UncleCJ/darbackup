@@ -1,4 +1,33 @@
-"${DAR}" -v -s 100M -y -R "${ROOTDIR}" -c "${STORAGEDIR}/${BASENAME}-${DATE}" \
--X "${BASENAME}*.dar" ${EXCEPTIONS} ${DONTCOMPRESS}
-"${DAR}" -C "${STORAGEDIR}/${BASENAME}-${DATE}-cat" \
--A "${STORAGEDIR}/${BASENAME}-${DATE}"
+# TODO: Need to script a way to find the olddate
+# TODO: Need to script decrypting of the catalogue file
+# TODO: Need to be able to allow monthly to be first weekly and weekly to be first daily
+# TODO: Need to find a way to address the names of the different file labels
+# TODO: Need to find a way to address the storage directories of different levels
+OLDDATE=2009-07-14
+
+# Do a regular daily
+# TODO: address the monthly date properly
+OLDARCHIVE="${STORAGEDIR}/dar/weekly/${BASENAME}-2009-07-06-${OLDDATE}-cat"
+ARCHIVE="${STORAGEDIR}/dar/daily/${BASENAME}-${OLDDATE}-${DATE}"
+
+# Do a daily when there's no weekly
+# TODO: address the monthly date properly
+OLDARCHIVE="${STORAGEDIR}/dar/monthly/${BASENAME}-${OLDDATE}-cat"
+ARCHIVE="${STORAGEDIR}/dar/daily/${BASENAME}-${OLDDATE}-${DATE}"
+
+# Do a regular weekly
+OLDDATE=2009-07-06
+OLDARCHIVE="${STORAGEDIR}/dar/monthly/${BASENAME}-${OLDDATE}-cat"
+ARCHIVE="${STORAGEDIR}/dar/weekly/${BASENAME}-${OLDDATE}-${DATE}"
+
+"${DAR}" -v -s 100M -y -R "${ROOTDIR}" -c "${ARCHIVE}" -A "${OLDARCHIVE}" ${EXCEPTIONS} ${DONTCOMPRESS} && \
+"${DAR}" -C "${ARCHIVE}-cat" -A "${ARCHIVE}" 
+
+
+# Do a regular monthly
+#ARCHIVE="${STORAGEDIR}/dar/monthly/${BASENAME}-${DATE}"
+
+# Non-differential has to be the exception 
+# when there's nothing to do differential from
+"${DAR}" -v -s 100M -y -R "${ROOTDIR}" -c "${ARCHIVE}" -X "${BASENAME}*.dar" ${EXCEPTIONS} ${DONTCOMPRESS} && \
+"${DAR}" -C "${ARCHIVE}-cat" -A "${ARCHIVE}"

@@ -1,0 +1,20 @@
+#!/bin/bash
+# This script is used to sync backup storage crosswise
+# between two or more machines. Put it in
+# /etc/cron.daily/backupsync and chmod a+x
+
+# TODO: Probably should run rsync-server instead
+
+if [[ "$(uname -n)" = "cappy" ]]; then
+  MYHOST=sabu
+  SYNCHOST=sandy.yoga.ee
+elif [[ "$(uname -n)" = "sandy" ]]; then
+  MYHOST=sandy
+  SYNCHOST=sabu.yoga.ee
+else
+  echo "Don't know where we are, exiting!"
+  exit 1
+fi
+
+su -c "rsync -Prv --delete -e ssh /data/yoga/backups/ \
+  ${SYNCHOST}:/data/yoga/sharedbackups/${MYHOST}/ > /dev/null" scriptuser 
