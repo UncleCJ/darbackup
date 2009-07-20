@@ -1,21 +1,55 @@
+STORAGEDIR="/data/yoga/backups" 
+DAR=/usr/bin/dar
+
 BASENAME=sandy-root
 ROOTDIR=/
 EXCEPTIONS="-P dev -P proc -P var -P home -P data -P mnt -P sodi -P tmp -P media -P sys" 
 
+STORAGEDIR="/data/yoga/backups" 
+DAR=/usr/bin/dar
 BASENAME=sandy-data
 ROOTDIR=/data
-EXCEPTIONS="-P yoga/backups -P backups -P yoga/diskimages -P old_sandy/data -P postgresql" 
+EXCEPTIONS="-P yoga/backups -P yoga/sharedbackups -P backups -P yoga/diskimages -P old_sandy/data -P postgresql" 
 
+STORAGEDIR="/data/yoga/backups" 
+DAR=/usr/bin/dar
 BASENAME=sandy-home
 ROOTDIR=/home
 EXCEPTIONS="-P cj/repositories -P margus/tamm.backup -P raivora/tammsaare \
 -P raivora/public_html -P heinar/ibs_11.03.2009.dump -P cj/sandy-webfiles.git" 
 
+STORAGEDIR="/data/yoga/backups" 
+DAR=/usr/bin/dar
 BASENAME=sabu-root
 ROOTDIR=/
 EXCEPTIONS="-P dev -P proc -P var -P home -P data -P mnt -P tmp -P media -P sys" 
 
+STORAGEDIR="/data/yoga/backups" 
+DAR=/usr/bin/dar
 BASENAME=sabu-home
 ROOTDIR=/home
-EXCEPTIONS="-P data/yoga/backups -P data/postgresql -P storage/Musa -P cj/svnrepo-2009-03-24-r5922.dump \
+EXCEPTIONS="-P data/yoga/backups -P data/yoga/sharedbackups -P data/postgresql -P storage/Musa -P cj/svnrepo-2009-03-24-r5922.dump \
 -P heinar/yoga.dump_14.06.2009 -P storage/ubuntu-8.04.1-server-i386.iso -P cj/repositories" 
+
+
+
+
+
+USERNAME=Liisa
+DAR=/Users/guest/opt/dar-2.3.9/bin/dar
+STORAGEDIR=/Volumes/cj/Documents/liisabackup
+
+BASENAME=powerbook-liisa-home
+ROOTDIR=/Users/${USERNAME}
+EXCEPTIONS="-P .dropbox/cache -P .thumbnails -P .Trash -P Library -P Music -P Dropbox \
+            -P Movies -P Documents/Backups -P Documents/Parallels -P Desktop/Confidential.sparseimage" 
+
+BASENAME=powerbook-liisa-library
+ROOTDIR=/Users/${USERNAME}/Library
+EXCEPTIONS='-P Caches -P "iTunes/iPhone Software Updates"'
+
+BASENAME=powerbook-liisa-root
+ROOTDIR=/
+EXCEPTIONS='-P ".Spotlight-V100" -P Volumes -P ".hotfiles.btree" -P "/.vol" -P "Users" -P Volumes -P var'
+
+

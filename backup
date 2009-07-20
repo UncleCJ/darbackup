@@ -1,7 +1,13 @@
+#!/bin/bash
+
 # TODO: Need to script a way to find the olddate
 # TODO: Need to script decrypting of the catalogue file
 # TODO: Need to find a way to address the names of the different file labels
 # TODO: Need to find a way to address the storage directories of different levels
+
+# Configuration parameters go here:
+c_daysbetweenmonthly=56
+c_daysbetweenweekly=7
 
 daysbetween() {
   if [[ $# -ne 2 ]]; then
@@ -29,13 +35,9 @@ daysbetween() {
   echo $(( (seconds2 - seconds1)/86400 ))	
 }
 
-# Do a monthly if the most recent monthly is more than two months old
-# Do a weekly if the most recent weekly or monthly is more than a week old
-# Do a daily if there's no daily, weekly or monthly from today
-# Exit if there's already a daily, weekly or monthly of this date
 
 latestset() {
-  if [[ $# -ne 1 ]]; then
+  if [[ $# -ne 2 ]]; then
     echo "Usage: latestset <directory> <basename>" >&2
     exit 1
   fi
@@ -54,27 +56,44 @@ latestset() {
     sed 's:\-cat\.[[:digit:]]\.dar\(\.gpg\)*$::' | \
     sed 's:\.[[:digit:]]*\.dar\(\.gpg\)*$::' | \
     sort | uniq | \
-    tail -1 | sed 's:.*\([[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}\)$:\1:'  
+    tail -1 | sed 's:.*\([[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}\)$:\1:'   
 }
 
-# BACKUPSETS=`ls "${STORAGEDIR}/"{monthly,weekly,daily}/ | \
-#   sed 's:\-cat\.1\.dar\(\.gpg\)*$::' | \
-#   sed 's:\.[0-9]*\.dar\(\.gpg\)*$::' | \
-#   sed 's:\.vol[0-9]*+[0-9]*\.par2$::' | \
-#   sed 's:\.par2$::' | \
-#   sort | uniq`
+# Seems both BSD and GNU date manage this, but are different in parsing
+today=$(date "+%Y-%m-%d")
 
-# for BACKUPSET in $BACKUPSETS; do
-#   echo "$BACKUPSET:" `du -hc "${STORAGEDIR}/${BACKUPSET}"*.[dg][ap][rg] | tail -1 | cut -f 1` "(.dar)" \
-# `du -hc "${STORAGEDIR}/${BACKUPSET}"*.par2 | tail -1 | cut -f 1` "(.par2)" 
-# done
+latestmonthly=$(latestset "${storagedir}/dar/monthly" "${basename}") || \
+      { echo "Could not convert date: $date2" >&2 ; exit 1; }
+latestweekly=$(latestset "${storagedir}/dar/weekly" "${basename}") || \
+      { echo "Could not convert date: $date2" >&2 ; exit 1; }
+latestdaily=$(latestset "${storagedir}/dar/daily" "${basename}") || \
+      { echo "Could not convert date: $date2" >&2 ; exit 1; }
+
+# Exit if there's already a daily, weekly or monthly of this date
+if [[ "${today}"="${latestmonthly}" -o \
+      "${today}"="${latestweekly}" -o \
+      "${today}"="${latestdaily}" ]]; then
+  echo "There is already a backup from today" >&2
+  exit 1
+fi
+
+# Do a monthly if the most recent monthly is more than two months old
+if [[ "${today}c_daysbetweenmonthly=56
+c_daysbetweenweekly=7
+
+daysbetween
+
+# Do a weekly if the most recent weekly or monthly is more than a week old
+# Do a daily if there's no daily, weekly or monthly from today
+
+OLDDATE=2009-07-14
+
 
   # if there's a cat, use that
   #  decrypt if decrypted is not available
   # else use the archives
   #  decrypt if decrypted is not available
 
-OLDDATE=2009-07-14
 
 # Do a regular daily
 # TODO: address the monthly date properly
@@ -96,7 +115,7 @@ ARCHIVE="${STORAGEDIR}/dar/weekly/${BASENAME}-${OLDDATE}-${DATE}"
 
 
 # Do a regular monthly
-#ARCHIVE="${STORAGEDIR}/dar/monthly/${BASENAME}-${DATE}"
+ARCHIVE="${STORAGEDIR}/dar/monthly/${BASENAME}-${DATE}"
 
 # Non-differential has to be the exception 
 # when there's nothing to do differential from
